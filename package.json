@@ -1,0 +1,24 @@
+{
+  "name": "book-admin-express",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "npx tsc",
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/app.js\""
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "mongodb": "^7.1.1",
+    "mongoose": "^9.4.1",
+    "morgan": "~1.9.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "concurrently": "^9.2.1",
+    "nodemon": "^3.1.14"
+  }
+}

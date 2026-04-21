@@ -1,16 +1,20 @@
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+import createError from 'http-errors';
+import express from 'express';
+import type { NextFunction, Request, Response } from 'express';
+import cookieParser from 'cookie-parser';
+import logger from 'morgan';
+import { User } from './model/index.js';
+import indexRouter from './routes/index.js';
+import usersRouter from './routes/users.js';
+import bookRouter from './routes/book.js'
 
-const { User } = require('./model/index.js')
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-require('./model/index');//添加部分
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, '../views'));
@@ -25,32 +29,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.use('/', indexRouter);
 // app.use('/users', usersRouter);
 
-app.get('/', (req, res) => {
-  const userModel = new User({ name: 'sanmu', nickName: "三木" })
-  userModel.save()
-  res.json({ success: true })
-})
+app.use('/api/books', bookRouter)
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use(function (req: Request, res: Response, next: NextFunction) {
 
   next(createError(404));
 });
 
-// error handler
-app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
 
 
 app.listen('3005', () => {
   console.log('server start at 3005')
 })
 
-module.exports = app;
+export default app;

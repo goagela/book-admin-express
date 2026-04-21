@@ -1,9 +1,10 @@
-const mongoose = require('mongoose')
-const userSchema = require('./userModel')
+import mongoose from 'mongoose'
+import userSchema from './userModel.js'
+import bookSchema from './bookModel.js'
 
 const uri = "mongodb+srv://bookAdmin:123456abc@cluster0.zcuygau.mongodb.net/?appName=Cluster0"
 async function main() {
-  mongoose.connect(uri)
+  await mongoose.connect(uri)
 }
 main().then(() => {
   console.log('mongodb connected');
@@ -12,4 +13,5 @@ main().then(() => {
 })
 
 const User = mongoose.model('User', userSchema)
-module.exports = { User }
+const Book = mongoose.model("Book", bookSchema)
+export { User, Book }

@@ -4,9 +4,11 @@
  * Module dependencies.
  */
 
-var app = require('../app');
-var debug = require('debug')('book-admin-express:server');
-var http = require('http');
+import app from '../dist/app.js';
+import createDebug from 'debug';
+import http from 'node:http';
+
+const debug = createDebug('book-admin-express:server');
 
 /**
  * Get port from environment and store in Express.

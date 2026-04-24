@@ -23,4 +23,32 @@ router.post('/', (req: Request, res: Response) => {
   bookModel.save()
   return res.json({ success: true })
 })
+router.delete('/:id', async (req: Request, res: Response) => {
+  const { id } = req.params
+  await Book.findByIdAndDelete(id)
+  return res.status(200).json({ success: true })
+})
+
+router.get('/:id', async (req: Request, res: Response) => {
+  const { id } = req.params
+  if (!id) { //防止无效id如undefined
+    return res.status(400).json({
+      success: false,
+      message: '无效的图书id'
+    })
+  }
+  const book = await Book.findById(id)
+  if (book) {
+    res.status(200).json({ data: book, success: true })
+  } else {
+    res.status(500).json({ message: "此书不存在" })
+  }
+
+})
+router.put('/:id', async (req: Request, res: Response) => {
+  const body = req.body
+  const { id } = req.params
+  await Book.findOneAndUpdate({ _id: id }, body)
+  return res.status(200).json({ success: true })
+})
 export default router

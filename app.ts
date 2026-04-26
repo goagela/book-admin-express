@@ -9,6 +9,7 @@ import { User } from './model/index.js';
 import indexRouter from './routes/index.js';
 import usersRouter from './routes/users.js';
 import bookRouter from './routes/book.js'
+import categoryRouter from './routes/category.js'
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -30,6 +31,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 app.use('/api/books', bookRouter)
+app.use('/api/categories', categoryRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req: Request, res: Response, next: NextFunction) {
